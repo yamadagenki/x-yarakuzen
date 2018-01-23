@@ -1,0 +1,53 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'spec/**/*'
+
+Rails:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - '*.gemspec'
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 35
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Lint/UnneededDisable:
+    Enabled: false
+
+Metrics/MethodLength:
+  Max: 60
+
+Metrics/ClassLength:
+  Max: 120
+
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 30
+
+Lint/RescueException:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false

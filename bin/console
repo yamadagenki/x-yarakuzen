@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'x/yarakuzen'
+
+Bundler.require
+
+require 'dotenv'
+Dotenv.load
+
+require "pry"
+Pry.start
