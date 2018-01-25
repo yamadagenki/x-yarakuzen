@@ -5,6 +5,8 @@ require 'x/yarakuzen'
 
 Bundler.require
 
+require 'rb-readline'
+require 'readline'
 require 'dotenv'
 Dotenv.load
 

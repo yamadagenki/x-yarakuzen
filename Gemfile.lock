@@ -70,6 +70,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     rake (10.5.0)
+    rb-readline (0.5.5)
     retryable (3.0.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
@@ -107,6 +108,7 @@ DEPENDENCIES
   pry-byebug
   railties
   rake (~> 10.0)
+  rb-readline
   retryable
   rspec (~> 3.0)
   rubocop

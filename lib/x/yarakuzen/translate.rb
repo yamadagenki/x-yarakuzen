@@ -27,19 +27,28 @@ module X
       end
       # rubocop:enable Metrics/CyclomaticComplexity
 
-      def translate(text)
-        puts text
+      def exec(text)
+        puts post_with_sign(text)
       end
 
       private
 
+      def initialize_https(uri)
+        https = Net::HTTP.new(uri.host, uri.port)
+        https.use_ssl = true
+        https.open_timeout = 5
+        https.read_timeout = 15
+        https.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        https.verify_depth = 5
+        https
+      end
+
       def get_timestamp
-        current = Time.now
-        "#{current.to_i}#{current.usec}"
+        DateTime.now.strftime('%Q')
       end
 
       def get_signature(timestamp)
-        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), timestamp + @api_secret, @api_secret)
+        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), "#{timestamp}#{@api_pub_key}", @api_secret_key)
       end
 
       def post_with_sign(text)
@@ -54,6 +63,8 @@ module X
           lcSrc: @origin_lang,
           lcTgt: @target_lang,
           tier: @tier,
+          persist: 1,
+          machineTranslate: 1,
           texts: [
             {
               customData: nonce,
@@ -62,10 +73,11 @@ module X
           ]
         }
         begin
-          req = Net::HTTP::Post.new(uri, headers)
+          req = Net::HTTP::Post.new(uri)
           req.body = body.to_json
 
           https = initialize_https(uri)
+          binding.pry
           https.start do |w|
             response = w.request(req)
             case response
@@ -73,7 +85,7 @@ module X
               json = JSON.parse(response.body)
               return json
             else
-              raise ConnectionFailedException, "Failed to connect to #{@name}: " + response.value
+              raise "Failed to connect to Yarakuzen: " + response.value
             end
           end
         rescue StandardError
