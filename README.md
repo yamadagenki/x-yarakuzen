@@ -22,7 +22,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+yarakuzen = X::Yarakuzen::Translate.new
+
+yarakuzen.exec("こんにちは")
+
+```
+
+### Want To Test
+
+```
+$ bin/console
+
+[1] pry(main)> yarakuzen = X::Yarakuzen::Translate.new
+[2] pry(main)> yarakuzen.exec("こんにちは")
+
+```
 
 ## Development
 
