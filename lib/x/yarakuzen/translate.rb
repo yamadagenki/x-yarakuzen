@@ -11,7 +11,7 @@ module X
         ko mn ms my nl pt ru sv th tl vi zh zh_Hant
       ].freeze
       TIERS = %w[standard business pro].freeze
-      API_URL = 'https://app.yarakuzen.com/api'.freeze
+      API_URL = 'https://app.yarakuzen.com/api/texts'.freeze
 
       # rubocop:disable Metrics/CyclomaticComplexity
       def initialize(options = {})
@@ -63,8 +63,6 @@ module X
           lcSrc: @origin_lang,
           lcTgt: @target_lang,
           tier: @tier,
-          persist: 1,
-          machineTranslate: 1,
           texts: [
             {
               customData: nonce,
@@ -74,10 +72,9 @@ module X
         }
         begin
           req = Net::HTTP::Post.new(uri)
-          req.body = body.to_json
+          req.form_data = body
 
           https = initialize_https(uri)
-          binding.pry
           https.start do |w|
             response = w.request(req)
             case response
