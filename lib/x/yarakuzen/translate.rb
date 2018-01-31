@@ -28,6 +28,7 @@ module X
       # rubocop:enable Metrics/CyclomaticComplexity
 
       def exec(text)
+        text = 'こんにちは'
         puts post_with_sign(text)
       end
 
@@ -44,11 +45,11 @@ module X
       end
 
       def get_timestamp
-        DateTime.now.strftime('%Q')
+        Time.now.to_i
       end
 
       def get_signature(timestamp)
-        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), "#{timestamp}#{@api_pub_key}", @api_secret_key)
+        OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA1.new, @api_secret_key, "#{timestamp}#{@api_pub_key}")
       end
 
       def post_with_sign(text)
@@ -63,13 +64,10 @@ module X
           lcSrc: @origin_lang,
           lcTgt: @target_lang,
           tier: @tier,
-          texts: [
-            {
-              customData: nonce,
-              text: text
-            }
-          ]
+          "texts[0][customData]": nonce,
+          "texts[0][text]": text
         }
+
         begin
           req = Net::HTTP::Post.new(uri)
           req.form_data = body
@@ -82,7 +80,7 @@ module X
               json = JSON.parse(response.body)
               return json
             else
-              raise "Failed to connect to Yarakuzen: " + response.value
+              raise 'Failed to connect to Yarakuzen: ' + response.body
             end
           end
         rescue StandardError
