@@ -29,12 +29,11 @@ module X
       # rubocop:enable Metrics/CyclomaticComplexity
 
       def exec(text)
-        text = 'こんにちは'
-        puts post_with_sign(text)
+        post_with_sign(text)
       end
 
       def get_data(custom_data)
-        puts get_with_sign(custom_data)
+        get_with_sign(custom_data)
       end
 
       private
