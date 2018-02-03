@@ -77,7 +77,6 @@ module X
 
         begin
           req = Net::HTTP::Get.new("#{uri}?#{body}")
-          puts "#{uri}?#{body}"
 
           https = initialize_https(uri)
           https.start do |w|
