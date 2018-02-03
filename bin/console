@@ -10,5 +10,5 @@ require 'readline'
 require 'dotenv'
 Dotenv.load
 
-require "pry"
+require 'pry'
 Pry.start

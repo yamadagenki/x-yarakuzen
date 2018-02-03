@@ -32,6 +32,12 @@ module X
         post_with_sign(text)
       end
 
+      def translate_with_lang(text, origin_lang, target_lang)
+        @origin_lang = origin_lang
+        @target_lang = target_lang
+        post_with_sign(text)
+      end
+
       def get_data(custom_data)
         get_with_sign(custom_data)
       end
@@ -66,8 +72,8 @@ module X
           timestamp: nonce,
           signature: signature,
           customData: custom_data,
-          count: 10 
-        }.map{ |k,v| "#{k}=#{v}" }.join("&")
+          count: 10
+        }.map { |k, v| "#{k}=#{v}" }.join('&')
 
         begin
           req = Net::HTTP::Get.new("#{uri}?#{body}")
