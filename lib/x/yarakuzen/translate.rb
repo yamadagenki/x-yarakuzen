@@ -2,6 +2,7 @@ require 'net/http'
 require 'openssl'
 require 'json'
 require 'time'
+require 'uri'
 
 module X
   module Yarakuzen
@@ -67,11 +68,11 @@ module X
           signature: signature,
           customData: custom_data,
           count: 10 
-        }
+        }.map{ |k,v| "#{k}=#{v}" }.join("&")
 
         begin
-          req = Net::HTTP::Get.new(uri)
-          req.form_data = body
+          req = Net::HTTP::Get.new("#{uri}?#{body}")
+          puts "#{uri}?#{body}"
 
           https = initialize_https(uri)
           https.start do |w|
