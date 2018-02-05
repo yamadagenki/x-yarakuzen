@@ -105,7 +105,7 @@ module X
           signature: signature,
           lcSrc: @origin_lang,
           lcTgt: @target_lang,
-          tier: @tier,
+          # tier: @tier,
           persist: 0,
           "texts[0][customData]": nonce,
           "texts[0][text]": text,
