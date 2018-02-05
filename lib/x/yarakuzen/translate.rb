@@ -106,7 +106,7 @@ module X
           lcSrc: @origin_lang,
           lcTgt: @target_lang,
           # tier: @tier,
-          persist: 0,
+          persist: 1,
           "texts[0][customData]": nonce,
           "texts[0][text]": text,
           machineTranslate: 1
